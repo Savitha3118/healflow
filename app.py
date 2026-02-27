@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file, session
 from functools import wraps
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time, uuid, io, datetime
@@ -85,7 +83,6 @@ def run():
         selected_url = request.form.get("selected_url", "").strip()
         custom_url = request.form.get("custom_url", "").strip()
 
-        # Decide URL
         if custom_url:
             url = custom_url
         elif selected_url:
@@ -110,6 +107,7 @@ def run():
 
         try:
             logs.append({"type": "info", "text": "Launching Chrome browser..."})
+
             chrome_options = Options()
             chrome_options.add_argument("--headless=new")
             chrome_options.add_argument("--no-sandbox")
@@ -117,15 +115,13 @@ def run():
             chrome_options.add_argument("--disable-gpu")
             chrome_options.add_argument("--window-size=1920,1080")
 
-            service = Service(ChromeDriverManager().install())
+            driver = webdriver.Chrome(options=chrome_options)
 
-            driver = webdriver.Chrome(service=service, options=chrome_options)
             driver.get(url)
             time.sleep(3)
 
             logs.append({"type": "info", "text": f"Navigated to: {url}"})
 
-            # Self-healing demo
             try:
                 driver.find_element(By.ID, "wrong-id")
             except:

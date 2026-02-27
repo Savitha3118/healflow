@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Healing History - HealFlow</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Segoe UI;
+background:#f4f6fb;
+}
+
+/* SIDEBAR */
+.sidebar{
+position:fixed;
+width:240px;
+height:100%;
+background:linear-gradient(180deg,#6a5cff,#5b49d6);
+color:white;
+padding:30px 20px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+padding:12px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+.sidebar a:hover{
+background:rgba(255,255,255,0.15);
+}
+
+/* MAIN */
+.main{
+margin-left:260px;
+padding:40px;
+}
+
+/* TABLE CARD */
+.card{
+background:white;
+padding:25px;
+border-radius:14px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* TABLE */
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+text-align:left;
+padding:14px;
+color:#777;
+border-bottom:1px solid #eee;
+}
+
+td{
+padding:18px 14px;
+border-bottom:1px solid #f1f1f1;
+}
+
+/* BADGE */
+.badge{
+padding:6px 14px;
+border-radius:20px;
+font-size:13px;
+font-weight:600;
+}
+
+.healed{
+background:#e6ddff;
+color:#6a5cff;
+}
+
+.conf{
+color:#6a5cff;
+font-weight:600;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+<h2>⚡ HealFlow</h2>
+
+<a href="/">Dashboard</a>
+<a href="/run">Run Tests</a>
+<a href="/reports">Reports</a>
+<a href="/healing">Healing History</a>
+<a href="/users">User Management</a>
+
+
+</div>
+
+
+<!-- MAIN -->
+<div class="main">
+
+<h1>Healing History</h1>
+
+<div class="card">
+
+<table>
+
+<tr>
+<th>Test Suite</th>
+<th>Broken Element</th>
+<th>Healed To</th>
+<th>Confidence</th>
+<th>Status</th>
+<th>Time</th>
+</tr>
+
+{% for h in history %}
+<tr>
+
+<td>{{h.suite}}</td>
+<td>{{h.element}}</td>
+<td>{{h.healed_to}}</td>
+
+<td class="conf">{{h.confidence}}</td>
+
+<td>
+<span class="badge healed">{{h.status}}</span>
+</td>
+
+<td>{{h.time}}</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reports - HealFlow</title>
+
+<style>
+    .btn{
+    border:none;
+    padding:9px 18px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+/* BLUE VIEW BUTTON */
+.view{
+    background:#4ea1ff;
+    color:white;
+}
+
+.view:hover{
+    background:#2f8cff;
+}
+
+/* PURPLE DOWNLOAD BUTTON */
+.download{
+    background:linear-gradient(90deg,#6a5cff,#b084f5);
+    color:white;
+}
+
+.download:hover{
+    opacity:0.9;
+}
+
+body{
+margin:0;
+font-family:Segoe UI;
+background:#f4f6fb;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+width:240px;
+height:100%;
+background:linear-gradient(180deg,#6a5cff,#5b49d6);
+color:white;
+padding:30px 20px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+padding:12px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+.sidebar a:hover{
+background:rgba(255,255,255,0.15);
+}
+
+/* MAIN */
+
+.main{
+margin-left:260px;
+padding:40px;
+}
+
+/* CARD */
+
+.card{
+background:white;
+padding:25px;
+border-radius:14px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th{
+text-align:left;
+padding:14px;
+color:#777;
+font-size:14px;
+}
+
+td{
+padding:18px 14px;
+border-top:1px solid #eee;
+}
+
+/* STATUS BADGES */
+
+.badge{
+padding:6px 14px;
+border-radius:20px;
+font-size:13px;
+font-weight:600;
+}
+
+.pass{background:#d4f5e4;color:#1c8c53;}
+.fail{background:#ffe0e0;color:#b93838;}
+.heal{background:#efe4ff;color:#6a3fd1;}
+
+/* BUTTONS */
+
+.btn{
+border:none;
+padding:8px 14px;
+border-radius:8px;
+cursor:pointer;
+margin-right:6px;
+}
+
+.view{background:#eef2ff;}
+.download{background:#e8f5ff;}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+<h2>⚡ HealFlow</h2>
+<a href="/">Dashboard</a>
+<a href="/run">Run Tests</a>
+<a href="/reports">Reports</a>
+<a href="/healing">Healing History</a>
+<a href="/users">User Management</a>
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<h1>Test Reports</h1>
+<p>View detailed execution reports and analytics</p>
+
+<div class="card">
+
+<table>
+
+<tr>
+<th>Test Suite</th>
+<th>Status</th>
+<th>Duration</th>
+<th>Healed</th>
+<th>Confidence</th>
+<th>Executed</th>
+<th>Actions</th>
+</tr>
+
+{% for r in reports %}
+
+<tr>
+
+<td>
+<b>{{r.name}}</b><br>
+<span style="color:#888">ID: {{r.id}}</span>
+</td>
+
+<td>
+{% if r.status=="Passed" %}
+<span class="badge pass">Passed</span>
+{% elif r.status=="Failed" %}
+<span class="badge fail">Failed</span>
+{% else %}
+<span class="badge heal">Healed</span>
+{% endif %}
+</td>
+
+<td>{{r.duration}}</td>
+
+<td>{{r.healed}}</td>
+
+<td>{{r.confidence}}</td>
+
+<td>{{r.executed}}</td>
+
+<td>
+<a href="/view_report/{{r.id}}">
+<button class="btn view">👁 View</button>
+</a>
+
+<a href="/download_report/{{r.id}}">
+<button class="btn download">⬇ Download</button>
+</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+</html>

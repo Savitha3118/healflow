@@ -1,0 +1,90 @@
+body{
+margin:0;
+font-family:Arial;
+display:flex;
+}
+
+.sidebar{
+width:230px;
+background:#5b4bdb;
+color:white;
+height:100vh;
+padding:20px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+padding:12px;
+text-decoration:none;
+}
+
+.sidebar a:hover{
+background:#4237b0;
+}
+
+.main{
+padding:30px;
+flex:1;
+}
+
+.card{
+display:inline-block;
+padding:25px;
+margin:10px;
+border-radius:10px;
+font-size:20px;
+}
+
+.green{background:#28a745;color:white;}
+.red{background:#dc3545;color:white;}
+.purple{background:#7c4cff;color:white;}
+/* ===== EXECUTION LOG CARD ===== */
+
+.log-card{
+    background:#071a34;
+    border-radius:16px;
+    margin-top:30px;
+    overflow:hidden;
+}
+
+/* header */
+
+.log-header{
+    padding:20px 25px;
+    font-size:22px;
+    font-weight:700;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+/* live badge */
+
+.live{
+    color:#29ff87;
+    font-size:18px;
+}
+
+/* log body */
+
+.log-box{
+    padding:25px;
+    font-family: "Courier New", monospace;
+    font-size:18px;
+    line-height:1.9;
+}
+
+/* log lines */
+
+.log-line{
+    margin-bottom:10px;
+}
+
+/* colors */
+
+.info{ color:#4da6ff; }
+.warning{ color:#ffcc00; }
+.heal{ color:#c084fc; }
+.success{ color:#35ff9a; }

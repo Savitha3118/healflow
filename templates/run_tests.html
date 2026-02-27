@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Run Tests - HealFlow</title>
+
+<style>
+
+body{margin:0;font-family:Segoe UI;background:#f4f6fb;}
+
+.sidebar{
+position:fixed;width:240px;height:100%;
+background:linear-gradient(180deg,#6a5cff,#5b49d6);
+color:white;padding:30px 20px;
+}
+
+.sidebar a{
+display:block;color:white;text-decoration:none;
+padding:12px;border-radius:10px;margin-bottom:10px;
+}
+
+.main{margin-left:260px;padding:40px;}
+
+.card{
+background:white;padding:25px;border-radius:14px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+.grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:25px;
+}
+
+input,select{
+width:100%;padding:14px;border-radius:10px;
+border:1px solid #ddd;margin-top:8px;margin-bottom:20px;
+font-size:15px;
+}
+
+.runbtn{
+width:100%;padding:16px;border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#6a5cff,#b084f5);
+color:white;font-size:16px;cursor:pointer;
+}
+
+.status{text-align:center;padding-top:60px;}
+
+.log-header{
+display:flex;justify-content:space-between;
+margin-top:40px;margin-bottom:12px;
+font-size:22px;font-weight:600;
+}
+
+.live{color:#2ecc71;}
+
+.log-box{
+background:#0d1b2a;border-radius:14px;
+padding:25px;height:300px;overflow-y:auto;
+font-family:monospace;font-size:15px;line-height:28px;
+}
+
+.info{color:#4ea1ff;}
+.warning{color:#ffd166;}
+.heal{color:#b784ff;}
+.success{color:#2ecc71;}
+.error{color:#ff6b6b;}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<h2>⚡ HealFlow</h2>
+<a href="/">Dashboard</a>
+<a href="/run">Run Tests</a>
+<a href="/reports">Reports</a>
+<a href="/healing">Healing History</a>
+<a href="/users">User Management</a>
+</div>
+
+<div class="main">
+
+<h1>Run Tests</h1>
+
+<div class="grid">
+
+<!-- EXECUTE TEST -->
+<div class="card">
+
+<h3>▶ Execute Test</h3>
+
+<form method="POST">
+
+<label>Test Suite</label>
+<select name="suite">
+
+<option value="">Select a test suite</option>
+
+{% for s in suites %}
+<option>{{s}}</option>
+{% endfor %}
+
+</select>
+
+<!-- <label>Target URL (optional — overrides suite URL)</label>
+<input name="url" placeholder="https://example.com"> -->
+<label>Select Target Web</label>
+<select name="selected_url">
+    <option value="">Use Suite Default Web</option>
+    <option value="http://127.0.0.1:5000/">Local Flask App</option>
+    <option value="https://www.saucedemo.com/">SauceDemo</option>
+    <option value="https://the-internet.herokuapp.com/login">Heroku Login</option>
+    <option value="https://demoqa.com/">DemoQA</option>
+    <option value="https://automationexercise.com/">Automation Exercise</option>
+    <option value="https://google.com">Google</option>
+    <option value="https://www.geeksforgeeks.org">GeeksforGeeks</option>
+    <option value="https://www.microsoft.com">microsoft</option>
+    <option value="https://www.youtube.com">YouTube Home</option>
+    <option value="https://www.wikipedia.org">Wikipedia</option>
+    <option value="https://www.w3schools.com">W3School</option>
+    
+</select>
+
+<label>Or Enter Custom URL (optional — overrides above selection)</label>
+<input 
+    type="text"
+    name="custom_url"
+    placeholder="https://example.com"
+    pattern="https?://.+"
+    title="Please enter a valid URL starting with http:// or https://"
+>
+
+<!-- <label>Or Enter Custom URL</label>
+<input id="custom_url" name="url" placeholder="https://example.com"> -->
+
+<button class="runbtn">▶ Run Test</button>
+
+</form>
+
+</div>
+
+
+<!-- STATUS -->
+<div class="card status">
+
+<h3>Execution Status</h3>
+
+{% if status=="Running..." %}
+<p style="color:#ff9800;font-weight:600">Running...</p>
+
+{% elif status=="Passed" %}
+<p style="color:#2ecc71;font-weight:600">Test Passed ✅</p>
+
+{% elif status=="Failed" %}
+<p style="color:#ff4d4d;font-weight:600">Test Failed ❌</p>
+
+{% else %}
+<p>No test running</p>
+{% endif %}
+
+</div>
+
+</div>
+
+
+<!-- LOG -->
+<div class="log-header">
+<span>› Execution Log</span>
+<span class="live">● Live</span>
+</div>
+
+<div class="log-box">
+
+{% if logs %}
+{% for log in logs %}
+<div class="{{log.type}}">{{log.text}}</div>
+{% endfor %}
+{% else %}
+Waiting to run test...
+{% endif %}
+
+</div>
+
+</div>
+</body>
+</html>

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from functools import wraps
 import time, uuid, datetime
 import re
+import os   # ✅ IMPORTANT ADD
 
 app = Flask(__name__)
 app.secret_key = "super_secret_key_123"
@@ -41,7 +42,7 @@ suite_urls = {
     "Search Functionality": "https://google.com"
 }
 
-# ---------------- LOGIN ROUTE ----------------
+# ---------------- LOGIN ----------------
 @app.route("/login", methods=["GET", "POST"])
 def login():
     error = None
@@ -79,7 +80,6 @@ def run():
         selected_url = request.form.get("selected_url", "").strip()
         custom_url = request.form.get("custom_url", "").strip()
 
-        # URL selection
         if custom_url:
             url = custom_url
         elif selected_url:
@@ -103,14 +103,12 @@ def run():
         start = time.time()
 
         try:
-            logs.append({"type": "info", "text": "Launching browser..."})
+            logs.append({"type": "info", "text": "Launching test engine..."})
 
-            # ---- CLOUD SAFE SIMULATION ----
             time.sleep(2)
 
             logs.append({"type": "info", "text": f"Navigated to: {url}"})
 
-            # simulate healing
             logs.append({"type": "heal", "text": "Broken element detected. Healing applied..."})
             healed = True
             stats["healed"] += 1
@@ -154,7 +152,7 @@ def run():
 def reports():
     return render_template("reports.html", reports=REPORT_DATA)
 
-# ---------------- HEALING HISTORY ----------------
+# ---------------- HEALING ----------------
 @app.route("/healing")
 @login_required
 def healing():
@@ -204,4 +202,5 @@ def users():
 
 # ---------------- START SERVER ----------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    port = int(os.environ.get("PORT", 10000))  # ✅ FIX
+    app.run(host="0.0.0.0", port=port)

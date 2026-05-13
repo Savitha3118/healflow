@@ -23,8 +23,8 @@ REPORT_DATA = []
 HEAL_HISTORY = []
 
 # ---------------- LOGIN ----------------
-VALID_USERNAME = "admin"
-VALID_PASSWORD = "1234"
+VALID_USERNAME = "demo@gmail.com"
+VALID_PASSWORD = "demo2123"
 
 def login_required(f):
     @wraps(f)

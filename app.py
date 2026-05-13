@@ -24,7 +24,7 @@ HEAL_HISTORY = []
 
 # ---------------- LOGIN ----------------
 VALID_USERNAME = "demo@gmail.com"
-VALID_PASSWORD = "demo2123"
+VALID_PASSWORD = "demo@123"
 
 def login_required(f):
     @wraps(f)
